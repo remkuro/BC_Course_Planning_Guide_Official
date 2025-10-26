@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<link href = "style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <div class="image">
+<!-- Navigation Bar -->
+    <div class= "topnav">
+      <img style = "width:50px; height:50px" src= "https://upload.wikimedia.org/wikipedia/en/0/00/Boston_College_seal.svg">
+
+      <h3 style="margin: 0px 5px 5px 0px;text-indent:10px; font-family:Georgia">  Boston College Course Planning Guide </h3>
+    </div> 
+    <div style="background-color:#dcc99f; padding: 1px; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8);"></div>
+<!-- Main Body -->
+  <div class="mini-body">
+
+  <p style= text-align:center>Ready to plan your next 4 years?</p>
+  <!-- Left side full course list -->
+
+  <div class="left-sidebar">
+    <h3>Full Course List</h3>
+    <p>Enter information to see courses here.</p>
+  </div>
+
+<h2>Student Information</h2>
+<form id="info-form">
+  <label for="grad-term">Graduation Term:</label>
+  <select id="grad-term" name="grad-term" required>
+    <option value="">-- Select Graduation Term --</option>
+    <option value="spring-2029">Spring 2029</option>
+    <option value="fall-2028">Fall 2028</option>
+    <option value="spring-2028">Spring 2028</option>
+    <option value="fall-2027">Fall 2027</option>
+    <option value="spring-2027">Spring 2027</option> 
+    <option value="fall-2026">Fall 2026</option>
+    <option value="spring-2026">Spring 2026</option>
+  </select>
+
+  <br><br>
+  
+  <label for="major">Major:</label>
+  <select id="major" name="major" required>
+    <option value="">-- Select Major --</option>
+    <option value="cs-ba">Computer Science (BA)</option>
+    <option value="cs-bs">Computer Science (BS)</option>
+  </select>
+
+  <br><br>
+
+  <button type="submit">Submit</button>
+</form>
+
+  <div id="table-container" style="display:none;"></div>
+
+<script>
+    bio = ["BIOL2010	Ecology and Evolution",
+     "BIOL2040	Investigations in Molecular Cell Biology Lab",
+     "BIOL3030	Introduction to Physiology"
+     ];
+    function createOptions(list){
+      
+      build = "";
+      build += "<select>"
+      build += "<option>--Select Courses--</option>"
+      for (i=0; i < list.length; i++){
+        build += "<option>" + list[i] + "</option>"
+      }
+      build += "</select>"
+      return build 
+    }
+    document.getElementById("info-form").addEventListener("submit", function (event){
+    event.preventDefault(); 
+    const gradTerm = document.getElementById("grad-term").value;
+    const major = document.getElementById("major").value;
+    const tableContainer = document.getElementById("table-container"); 
+    tableContainer.innerHTML = ""; 
+    tableContainer.style.display = "block"; 
+    let startingYears = []; 
+    if (gradTerm === "spring-2029" && major === "cs-bs") { // Will assume user is a freshman for now
+      startingYears = [2025, 2026, 2027, 2028];
+    }
+
+    startingYears.forEach((year, i) => {
+      const tableWrapper = document.createElement("div");
+      const label = document.createElement("h3");
+      label.textContent = `Year ${i + 1}`;
+      tableWrapper.appendChild(label);
+      const table = document.createElement("table");
+      table.border = "1"; 
+
+      for (let r = 0; r < 6; r++) {
+        const row = document.createElement("tr");
+        // const head_row = document.createElement("tr");
+        // const table_head1 = document.createElement("th"); 
+        // const table_head2 = document.createElement("th"); 
+        const col1 = document.createElement("td");
+        const col2 = document.createElement("td");
+
+        if (i === 0){
+          if (r === 0){
+            col1.textContent = `Fall ${year}`;
+            col2.textContent = `Spring ${year + 1}`;
+          }
+          else if (r === 1){
+            col1.textContent = "Computer Science I (CSCI1101)";
+            col2.textContent = "Computer Science II (CSCI1102)";
+          }
+          else if(r === 2){
+            col1.textContent = "Calculus II"
+            col2.textContent = "Multivariable Calculus"
+          }
+          else if (r === 3){
+            col1.innerHTML = 
+             `<select id="mySelect">
+              <option>--Select Core/Elective--</option>
+              <option>Core</option>
+              <option>Elective</option>
+              </select>`
+            // if (document.getElementById("mySelect") === "Core":
+                
+            col2.innerHTML =
+              `<select>
+                <option>-- Select Language Fulfilment --</option>
+                <option>Arabic II</option>
+                <option>Chinese II</option>
+                <option>Spanish II</option>
+                </select>`
+          }
+          else{
+            col1.innerHTML =
+            `<select>
+              <option>-- Select Core Fulfillment --</option>
+            </select>`
+            col2.innerHTML =
+            `<select>
+              <option>-- Select Elective Fulfillment --</option>
+            </select>`
+          }
+        }
+
+        else if (i === 1) {
+          if (r === 0) {
+            col1.textContent = `Fall ${year}`;
+            col2.textContent = `Spring ${year + 1}`;
+          } else if (r === 1) {
+            col1.textContent = "Computer Systems (CSCI2271)";
+            col2.textContent = "Computer Organization (CSCI2272)";
+          } else if (r === 2) {
+            col1.textContent = "Linear Algebra";
+            col2.textContent = "Math 3000+ Elective";
+          } else if (r === 3) {
+            col1.innerHTML = 
+              `<select>
+                <option>-- Select Arts Core Fulfillment --</option>
+                <option>Arts History</option>
+                <option>Intro to Music Theory</option>
+                <option>Pottery 101</option>
+              </select>`
+            col2.innerHTML =
+              `<select>
+                <option>-- Select Writing Core Fulfillment --</option>
+                <option>College Writing</option>
+                <option>First Year Writing Seminar</option>
+              </select>`
+            }else if (r === 4){
+              col1.textContent = "Theology I";
+              col2.textContent = "Theology II";
+            }else{
+            col1.innerHTML =
+            `<select>
+              <option>-- Select Core Fulfillment --</option>
+            </select>`
+            col2.innerHTML =
+            `<select>
+              <option>-- Select Elective Fulfillment --</option>
+            </select>`
+          }
+        }
+        else if (i === 2) {
+          if (r === 0) {
+            col1.textContent = `Fall ${year}`;
+            col2.textContent = `Spring ${year + 1}`;
+          } else if (r === 1) {
+            col1.textContent = "Randomness and Computation (CSCI2244)";
+            col2.textContent = "Computer Organization and Lab (CSCI2272)";
+          } else if (r === 2) {
+            col1.textContent = "CS2000 Elective (Ethics Cluster)";
+            col2.textContent = "Algorithms (CSCI3383)";
+          } else if (r === 3) {
+            col1.textContent = "Multivariable Calculus (MATH2202)";
+            col2.innerHTML =
+              `<select>
+                <option>-- Select Core Fulfillment --</option>
+              </select>`
+            }else{
+            col1.innerHTML =
+            `<select>
+              <option>-- Select Core Fulfillment --</option>
+            </select>`
+            col2.innerHTML =
+            `<select>
+              <option>-- Select Elective Fulfillment --</option>
+            </select>`
+            }
+        }else if (i === 3) {
+          if (r === 0) {
+            col1.textContent = `Fall ${year}`;
+            col2.textContent = `Spring ${year + 1}`;
+          } else if (r === 1) {
+            col1.textContent = "Randomness and Computation (CSCI2244)";
+            col2.textContent = "Computer Organization and Lab (CSCI2272)";
+          } else if (r === 2) {
+            col1.textContent = "CS2000 Elective (Ethics Cluster)";
+            col2.textContent = "Algorithms (CSCI3383)";
+          } else if (r === 3) {
+            col1.textContent = "Multivariable Calculus (MATH2202)";
+            col2.innerHTML =
+              `<select>
+                <option>-- Select Core Fulfillment --</option>
+              </select>`
+            }else{
+            col1.innerHTML =
+            `<select>
+              <option>-- Select Core Fulfillment --</option>
+            </select>`
+            col2.innerHTML =
+            `<select>
+              <option>-- Select Elective Fulfillment --</option>
+            </select>`
+            }
+        }
+        
+        // head_row.appendChild(table_head1);
+        // head_row.appendChild(table_head2);
+        row.appendChild(col1);
+        row.appendChild(col2);
+        // table.appendChild(head_row);
+        table.appendChild(row);
+      
+      tableWrapper.appendChild(table);
+      tableContainer.appendChild(tableWrapper); 
+        }
+    })
+      }
+    );
+                                                        
+  
+  // } else if (gradTerm === "spring-2029" && major === "cs-ba") {
+  //   startingYears = [2025, 2026, 2027, 2028];
+
+  //   // will insert courses eventually -> i can try creating a function to auto populate the options
+  // }
+                                      
+  ///////courses = ["BIOL2000	Molecules and Cells",
+   
+</script>
+
+</div>
+</div>
+</body>
+<footer> 
+<h4 style=text-align:center>All Rights Reserved.</h4>
+</footer>
+</html>

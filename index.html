@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<link href = "style.css" rel="stylesheet" type="text/css">
+  
+</head>
+
+<body>
+  
+  <div class="image">
+<!-- Navigation Bar -->
+    <div class= "topnav">
+      <img style = "width:50px; height:50px" src= "https://upload.wikimedia.org/wikipedia/en/0/00/Boston_College_seal.svg">
+
+      <h3 style="margin: 0px 5px 5px 0px;text-indent:10px; font-family:Georgia">  Boston College Course Planning Guide </h3>
+    </div> 
+    <div style="background-color:#dcc99f; padding: 1px; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8);"></div>
+<!-- Main Body -->
+  <div class="mini-body">
+
+  <p style= text-align:center>Ready to plan your next 4 years?</p>
+  <!-- Left side full course list -->
+
+  <!-- <div class="left-sidebar">
+    <h3>Full Course List</h3>
+    <p>Enter information to see courses here.</p>
+  </div>
+ -->
+<h2>Student Information</h2>
+<form id="info-form">
+  <label for="grad-term">Graduation Term:</label>
+  <select id="grad-term" name="grad-term" required>
+    <option value="">-- Select Graduation Term --</option>
+    <option value="spring-2029">Spring 2029</option>
+    <option value="fall-2028">Fall 2028</option>
+    <option value="spring-2028">Spring 2028</option>
+    <option value="fall-2027">Fall 2027</option>
+    <option value="spring-2027">Spring 2027</option> 
+    <option value="fall-2026">Fall 2026</option>
+    <option value="spring-2026">Spring 2026</option>
+  </select>
+
+  <br><br>
+  
+  <label for="major">Major:</label>
+  <select id="major" name="major" required>
+    <option value="">-- Select Major --</option>
+    <option value="cs-ba">Computer Science (BA)</option>
+    <option value="cs-bs">Computer Science (BS)</option>
+  </select>
+
+  <br><br>
+
+  <button type="submit">Submit</button>
+</form>
+
+  <div id="numCredits">Total Credits:</div>
+
+  <div id="table-container"></div>
+
+<script>
+    
+    function createOptions(list){
+      
+      build = "";
+      build += "<select>"
+      build += "<option>--Select Courses--</option>"
+      for (i=0; i < list.length; i++){
+        build += "<option>" + list[i] + "</option>"
+      }
+      build += "</select>"
+      return build 
+    }
+    document.getElementById("info-form").addEventListener("submit", function (event){
+    event.preventDefault(); 
+    const gradTerm = document.getElementById("grad-term").value;
+    const major = document.getElementById("major").value;
+    const tableContainer = document.getElementById("table-container"); 
+    tableContainer.innerHTML = ""; 
+    tableContainer.style.display = "block"; 
+    let startingYears = []; 
+    if (gradTerm === "spring-2029" && major === "cs-bs") { // Will assume user is a freshman for now
+      startingYears = [2025, 2026, 2027, 2028];
+
+    startingYears.forEach((year, i) => {
+      const tableWrapper = document.createElement("div");
+      const label = document.createElement("h3");
+      label.textContent = `Year ${i + 1}`;
+      tableWrapper.appendChild(label);
+      const table = document.createElement("table");
+      table.border = "1"; 
+
+      for (let r = 0; r < 6; r++) {
+        const row = document.createElement("tr");
+        // const head_row = document.createElement("tr");
+        // const table_head1 = document.createElement("th"); 
+        // const table_head2 = document.createElement("th"); 
+        const col1 = document.createElement("td");
+        const col2 = document.createElement("td");
+
+        if (i === 0){
+          if (r === 0){
+            col1.textContent = `Fall ${year}`;
+            col2.textContent = `Spring ${year + 1}`;
+          }
+          else if (r === 1){
+            col1.textContent = "Computer Science I (CSCI1101)";
+            col2.textContent = "Computer Science II (CSCI1102)";
+          }
+          else if(r === 2){
+            col1.textContent = "Calculus II"
+            col2.textContent = "Multivariable Calculus"
+          }
+          // else if (r === 3){
+          //   col1.innerHTML = 
+          //    `<select id="mySelect">
+          //     <option>--Select Core/Elective--</option>
+          //     <option value = "core">Core</option>
+          //     <option value = "elective">Elective</option>
+          //     </select>`
+          //   // if (document.getElementById("mySelect").value === "core"){
+          //   //     col1.innerHTML = createOptions(bio);
+          //   //   }
+          //   col2.innerHTML =
+          //     `<select id="mySelect">
+          //       <option>--Select Core/Elective--</option>
+          //       <option value = "core">Core</option>
+          //       <option value = "elective">Elective</option>
+          //       </select>`
+          // }
+          else{
+            col1.innerHTML =
+              `<select id="mySelect">
+                <option>--Select Core/Elective--</option>
+                <option value = "core">Core</option>
+                <option value = "elective">Elective</option>
+                </select>`
+            col2.innerHTML =
+              `<select id="mySelect2">
+                <option>--Select Core/Elective--</option>
+                <option value = "core">Core</option>
+                <option value = "elective">Elective</option>
+                </select>`
+          }
+        }
+
+        else if (i === 1) {
+          if (r === 0) {
+            col1.textContent = `Fall ${year}`;
+            col2.textContent = `Spring ${year + 1}`;
+          } else if (r === 1) {
+            col1.textContent = "Computer Systems (CSCI2271)";
+            col2.textContent = "Computer Organization (CSCI2272)";
+          } else if (r === 2) {
+            col1.textContent = "Linear Algebra";
+            col2.textContent = "Math 3000+ Elective";
+          } 
+          // else if (r === 4){
+          //     col1.textContent = "Theology I";
+          //     col2.textContent = "Theology II";
+          //   }
+          else {
+            col1.innerHTML =
+              `<select id="mySelect">
+                <option>--Select Core/Elective--</option>
+                <option value = "core">Core</option>
+                <option value = "elective">Elective</option>
+                </select>`
+            col2.innerHTML =
+              `<select id="mySelect2">
+                <option>--Select Core/Elective--</option>
+                <option value = "core">Core</option>
+                <option value = "elective">Elective</option>
+                </select>`
+          }
+        }
+        else if (i === 2) {
+          if (r === 0) {
+            col1.textContent = `Fall ${year}`;
+            col2.textContent = `Spring ${year + 1}`;
+          } else if (r === 1) {
+            col1.textContent = "Randomness and Computation (CSCI2244)";
+            col2.textContent = "Computer Organization and Lab (CSCI2272)";
+          } else if (r === 2) {
+            col1.textContent = "CS2000 Elective (Ethics Cluster)";
+            col2.textContent = "Algorithms (CSCI3383)";
+          } else if (r === 3) {
+            col1.textContent = "Multivariable Calculus (MATH2202)";
+            col2.innerHTML =
+              `<select id="mySelect">
+                <option>--Select Core/Elective--</option>
+                <option value = "core">Core</option>
+                <option value = "elective">Elective</option>
+                </select>`
+            }else{
+            col1.innerHTML =
+              `<select id="mySelect">
+                <option>--Select Core/Elective--</option>
+                <option value = "core">Core</option>
+                <option value = "elective">Elective</option>
+                </select>`
+            col2.innerHTML =
+              `<select id="mySelect2">
+                <option>--Select Core/Elective--</option>
+                <option value = "core">Core</option>
+                <option value = "elective">Elective</option>
+                </select>`
+            }
+        }else if (i === 3) {
+          if (r === 0) {
+            col1.textContent = `Fall ${year}`;
+            col2.textContent = `Spring ${year + 1}`;
+          } else if (r === 1) {
+            col1.textContent = "CS3000 Elective";
+            col2.textContent = "CS3000 Elective";
+          } else if (r === 2) {
+            col1.textContent = "Math Elective";
+            col2.textContent = "CS3000 Elective";
+          }else{
+            col1.innerHTML =
+              `<select id="mySelect">
+                <option>--Select Core/Elective--</option>
+                <option value = "core">Core</option>
+                <option value = "elective">Elective</option>
+                </select>`
+            col2.innerHTML =
+              `<select id="mySelect2">
+                <option>--Select Core/Elective--</option>
+                <option value = "core">Core</option>
+                <option value = "elective">Elective</option>
+                </select>`
+            }
+        }
+        
+        // head_row.appendChild(table_head1);
+        // head_row.appendChild(table_head2);
+        row.appendChild(col1);
+        row.appendChild(col2);
+        // table.appendChild(head_row);
+        table.appendChild(row);
+      
+      tableWrapper.appendChild(table);
+      tableContainer.appendChild(tableWrapper); 
+        if (r > 2) {
+        const select = row.querySelector("#mySelect");
+        select.addEventListener("change", () => {
+          if (select.value === "core") {
+            col1.innerHTML += createOptions(core_courses);
+            }else{
+            col1.innerHTML += createOptions(elective_courses)
+            }
+            });
+          }
+        }
+    });
+      
+    } else if (gradTerm === "spring-2029" && major === "cs-ba") {
+        startingYears = [2025, 2026, 2027, 2028];
+
+        /*let credits = 25;
+        const display = document.getElementById('numCredits');
+        
+        function updateCredits() {
+          display.textContent = `credits: ${credits}`
+        }*/
+      
+        startingYears.forEach((year, i) => {
+          const tableWrapper = document.createElement("div");
+          const label = document.createElement("h3");
+          label.textContent = `Year ${i + 1}`;
+          tableWrapper.appendChild(label);
+          const table = document.createElement("table");
+          table.border = "1"; 
+
+          for (let r = 0; r < 6; r++) {
+            const row = document.createElement("tr");
+            const col1 = document.createElement("td");
+            const col2 = document.createElement("td");
+
+            if (i === 0){
+              if (r === 0){
+                col1.textContent = `Fall ${year}`;
+                col2.textContent = `Spring ${year + 1}`;
+              }
+              else if (r === 1){
+                col1.textContent = "Computer Science I (CSCI1101)";
+                col2.textContent = "Computer Science II (CSCI1102)";
+              }
+              else if(r === 2){
+                col1.textContent = "Calculus II"
+                col2.innerHTML = 
+                 `<select>
+                  <option>--Select Core--</option>
+                  <option>Core</option>
+                  </select>`
+              }
+              else if (r === 3){
+                col1.innerHTML =
+                `<select>
+                  <option>-- Cultural Diversity Core Fulfillment --</option>
+                  <option>Introduction to Caribbean Art</option>
+                  <option>Twentieth-Century Russian Literature</option>
+                </select>`
+                col2.innerHTML =
+                `<select>
+                  <option>-- Select Elective Fulfillment --</option>
+                </select>`
+              }
+              else{
+                col1.innerHTML =
+                `<select>
+                  <option>-- Select Core Fulfillment --</option>
+                </select>`
+                col2.innerHTML =
+                `<select>
+                  <option>-- Select Core Fulfillment --</option>
+                </select>`
+              }
+            }
+
+            else if (i === 1) {
+              if (r === 0) {
+                col1.textContent = `Fall ${year}`;
+                col2.textContent = `Spring ${year + 1}`;
+              } else if (r === 1) {
+                col1.textContent = "Data Structures";
+                col2.textContent = "Logic & Computation";
+              } else if (r === 2) {
+                col1.textContent = "Linear Algebra (MATH2210)";
+                col2.textContent = "Computer Systems";
+              } else if (r === 3) {
+                col1.innerHTML = 
+                  `<select>
+                    <option>-- Select Arts Core Fulfillment --</option>
+                    <option>Early American Art (ARTH2205)</option>
+                    <option>Painting I: Foundations (ARTS1102)</option>
+                    <option>Fundamentals of Music Theory (MUSA1100)</option>
+                    <option>Introduction to Theatre (THTR1170)</option>
+                  </select>`
+                col2.innerHTML =
+                  `<select>
+                    <option>-- Select Writing Core Fulfillment --</option>
+                    <option>College Writing</option>
+                    <option>First Year Writing Seminar</option>
+                  </select>`
+                }else if (r === 4){
+                  col1.textContent = "Theology I";
+                  col2.textContent = "Theology II";
+                }else{
+                col1.innerHTML =
+                `<select>
+                  <option>-- Select Core Fulfillment --</option>
+                </select>`
+                col2.innerHTML =
+                `<select>
+                  <option>-- Select Elective Fulfillment --</option>
+                </select>`
+              }
+            }
+            else if (i === 2) {
+              if (r === 0) {
+                col1.textContent = `Fall ${year}`;
+                col2.textContent = `Spring ${year + 1}`;
+              } else if (r === 1) {
+                col1.textContent = "Randomness and Computation (CSCI2244)";
+                col2.textContent = "CS2000 Elective";
+              } else if (r === 2) {
+                col1.textContent = "Computer Organization (CSCI2272)";
+                col2.textContent = "Algorithms (CSCI3383)";
+              } else{
+                col1.innerHTML =
+                `<select>
+                  <option>-- Select Core Fulfillment --</option>
+                </select>`
+                col2.innerHTML =
+                `<select>
+                  <option>-- Select Elective Fulfillment --</option>
+                </select>`
+                }
+            }else if (i === 3) {
+              if (r === 0) {
+                col1.textContent = `Fall ${year}`;
+                col2.textContent = `Spring ${year + 1}`;
+              } else if (r === 1) {
+                col1.innerHTML =
+                `<select id = "electiveSelect">
+                  <option>-- CS3000+ Elective --</option>
+                  <option value="3">Foundations of Blockchain (CSCI3100)</option>
+                  <option value ="4">Recommender Systems (CSCI3312)</option>
+                  <option value ="4">Machine Learning (CSCI3345)</option>
+                  <option value ="3">Robotics (CSCI3347)</option>
+                </select>`
+                col2.textContent = "Social Science Core";
+
+                /*electiveSelect.addEventListener('update', () => {
+                  const points = parseInt(electiveSelect.value);
+                    score += credits;
+                    updateCredits();
+                  }
+                });*/
+                
+              } else if (r === 2) {
+                col1.innerHTML =
+                `<select>
+                  <option>-- CS3000+ Elective --</option>
+                  <option>Natural Language Processing</option>
+                  <option>Object-Oriented Design</option>
+                  <option>Software Engineering</option>
+                  <option>Foundations of algorithmic (un)fairness</option>
+                </select>`
+                col2.innerHTML =
+                `<select>
+                  <option>-- Select Core Fulfillment --</option>
+                </select>` 
+              } else {
+                col1.innerHTML =
+                `<select>
+                  <option>-- Select Elective Fulfillment --</option>
+                </select>`
+                col2.innerHTML =
+                `<select>
+                  <option>-- Select Elective Fulfillment --</option>
+                </select>` 
+                }
+            }
+
+            // head_row.appendChild(table_head1);
+            // head_row.appendChild(table_head2);
+            row.appendChild(col1);
+            row.appendChild(col2);
+            // table.appendChild(head_row);
+            table.appendChild(row);
+
+          tableWrapper.appendChild(table);
+          tableContainer.appendChild(tableWrapper); 
+            }
+        })
+      
+        }
+      }
+    );                                  
+  
+  // } else if (gradTerm === "spring-2029" && major === "cs-ba") {
+  //   startingYears = [2025, 2026, 2027, 2028];
+
+  //   // will insert courses eventually -> i can try creating a function to auto populate the options
+  // }
+                                      
+  ///////courses = ["BIOL2000	Molecules and Cells",
+   core_courses = [
+     "--Natural Science--",
+     "BIOL2010 Ecology and Evolution",
+     "BIOL2040 Investigations in Molecular Cell Biology Lab",
+     "BIOL3030 Introduction to Physiology",
+      "--Arts--",
+     "AADS227801 Introduction to Caribbean Art",
+     "ARTH110101 Art: Prehistoric to Middle Ages",
+     "ARTH110201 Art: Renaissance to Modern Times",
+     "ARTH173001 The Medium Shapes the Message: Materials and Technologies of Visual Communication",
+     "ARTH220501 Early American Art",
+     "ARTH220601 Art and Myth in Ancient Greece",
+     "ARTH221201 East Asian Art and Architecture",
+     "ARTH223101 Early Renaissance Art in Italy",
+     "ARTH223201 Northern Renaissance Art",
+     "ARTH225101 Modern Architecture",
+     "ARTH226701 Saltbox to Skyscraper: American Architecture",
+     "ARTH227801 Introduction to Caribbean Art",
+     "ARTH301201 After Genghis Khan: Art and Architecture in Iran and Central Asia",
+     "ARTS110101 Drawing I: Foundations",
+     "ARTS110102 Drawing I: Foundations",
+     "ARTS110103 Drawing I: Foundations",
+     "ARTS110104 Drawing I: Foundations",
+     "ARTS110201 Painting I: Foundations",
+     "ARTS110202 Painting I: Foundations",
+     "ARTS110203 Painting I: Foundations",
+     "ARTS110204 Painting I: Foundations",
+     "ARTS110401 Design: Seeing Is Believing",
+     "ARTS226101 Intermediate Photography: Image & Context",
+     "CLAS220801 Art and Myth in Ancient Greece",
+     "GERM201101 Deutscher Film",
+     "MUSA110001 Fundamentals of Music Theory",
+     "MUSA110002 Fundamentals of Music Theory",
+     "MUSA110003 Fundamentals of Music Theory",
+     "MUSA110004 Fundamentals of Music Theory",
+     "MUSA110005 Fundamentals of Music Theory",
+     "MUSA110006 Fundamentals of Music Theory",
+     "MUSA110007 Fundamentals of Music Theory",
+     "MUSA120001 Introduction to Music",
+     "MUSA120002 Introduction to Music",
+     "MUSA120003 Introduction to Music",
+     "MUSA120004 Introduction to Music",
+     "MUSA120005 Introduction to Music",
+     "MUSA120006 Introduction to Music",
+     "MUSA120007 Introduction to Music",
+     "MUSA130001 History of Popular Music",
+     "MUSA130002 History of Popular Music",
+     "SLAV218001 From Russia with Love: Russian Musical and Visual Culture",
+     "THTR112001 Elements of Dance",
+     "THTR112002 Elements of Dance",
+     "THTR117001 Introduction to Theatre",
+     "THTR117002 Introduction to Theatre",
+     "THTR117003 Introduction to Theatre",
+     "THTR117004 Introduction to Theatre",
+     "THTR117005 Introduction to Theatre",
+     "THTR117006 Introduction to Theatre",
+     "THTR117007 Introduction to Theatre",
+     "THTR117009 Introduction to Theatre",
+     "THTR117010 Introduction to Theatre",
+     "THTR117011 Introduction to Theatre",
+
+     "Cultural Diversity Core",
+     "AADS111001 Introduction to African Diaspora Studies",
+     "AADS227801 Introduction to Caribbean Art",
+     "AADS331001 Studies of Race, Law, and Resistance",
+     "APSY1031 Family, School, and Society",
+     "ARTH227801 Introduction to Caribbean Art",
+     "EALC206101 Far Eastern Literary Masterpieces",
+     "EALC216101 Ghosts and Strange Happenings in Chinese Literature",
+     "ECON150301 Exchange and Values: Stories and Measures of Inequality",
+     "ECON3374 Development Economics and Policy",
+     "ENGL118001 Lit Core: From Slavery to Mass Incarceration",
+     "ENGL118401 Lit Core: Literature, Testimony, Justice",
+     "ENGL173801 Exchange and Values: Stories and Measures of Inequality",
+     "ENGL174901 Creatively Re/Imagining Black Worlds: Black Literature Making Up To Make Real",
+     "ENGL1750 Plants and Power: Reimagining Colonial Science through World Literature in English",
+     "ENGL220101 Versions in Black: Black Women's Writing",
+     "ENGL222801 Twentieth-Century Russian Literature (in Translation)",
+     "ENGL227801 American Culture: Engaging Difference and Justice",
+     "ENGL311901 The Graphic Novel and Marginality",
+     "ENGL401001 Human Rights and American Women's Writing, 1850-1920",
+     "ENVS331501 Sustainable Agriculture",
+     "ERAL400001 Restorative Justice and Prison Reform in Global Contexts",
+     "FILM331201 World Cinema",
+     "FORM1051 Reimagining School and Society",
+     "FORM205101 Learning Cultures",
+     "HIST1078 Globalization II",
+     "HIST171801 How Sports Explain America: The History of Sports in the United States",
+     "HIST173401 Moving Matters: Migration and Transformation Across the Americas",
+     "HIST1735 Plants and Power: The History of Colonial Science in the English-Speaking World",
+     "HIST1736 Urban Paradoxes: Histories of Cities, Power, and Environment in the Americas",
+     "HIST180601 Podcasting the Ottomans",
+     "HIST184401 American Capitalism and Its Critics",
+     "HIST202001 Japanese Cultural Icons through Modern Times",
+     "HIST205101 Modern China History",
+     "HIST260301 States and Minorities in the Middle East",
+     "ICSP230901 Music and Culture in the Middle East",
+     "ICSP320001 Engaging Interreligious Leadership",
+     "INTL3374 Development Economics and Policy",
+     "INTL5563 Ethics, Religion, and International Politics",
+     "MGMT213701 Managing Diversity",
+     "MGMT213702 Managing Diversity",
+     "MUSA1320 Introduction to Musics of the World",
+     "MUSA230901 Music and Culture in the Middle East",
+     "NELC206201 States and Minorities in the Middle East",
+     "NURS426401 Actualizing the Role of Professional Nurse",
+     "PHIL116001 The Challenge of Justice",
+     "PHIL223001 Mass Incarceration: Philosophical and Theological Perspectives",
+     "PHIL424201 The Ethics of Accompaniment of Refugees",
+     "PHIL5563 Ethics, Religion, and International Politics",
+     "POLI240501 Comparative Politics of the Middle East",
+     "POLI351001 Globalization",
+     "POLI459001 The Rise of China and U.S.-China Competition: East Asian Security and the Changing International Order",
+     "SLAV216901 Introduction to Slavic Peoples and Cultures",
+     "SLAV217301 Twentieth-Century Russian Literature (in Translation)",
+     "SOCY100101 Introductory Sociology",
+     "SOCY103001 Deviance and Social Control",
+     "SOCY115001 States and Minorities in the Middle East",
+     "SOCY123301 Creatively Re/Imagining Black Worlds: Empathy and the Social Life of Fiction in the African Diaspora",
+     "SOCY171801 How Sports Explain America: The Sociology of Sports in the United States",
+     "SOCY330401 Race, Ethnicity, and Popular Culture",
+     "SPAN666001 Literature of the Hispanic Caribbean",
+     "THEO143001 Buddhism and Christianity in Dialogue",
+     "THEO1431 Islam and Christianity in Dialogue",
+     "THEO1432 Hinduism and Christianity in Dialogue",
+     "THEO143301 Chinese Religions and Christianity in Dialogue",
+     "THEO143401 Judaism and Christianity in Dialogue",
+     "THEO211401 When Gods Begin Again: Intro to African and African Diaspora Religions",
+     "THEO216001 The Challenge of Justice",
+     "THEO223001 Mass Incarceration: Philosophical and Theological Perspectives",
+     "THEO320001 Engaging Interreligious Leadership",
+     "THEO355701 Catholicism and Social Responsibility",
+     "THEO424201 The Ethics of Accompaniment of Refugees",
+     "THEO556201 Ethics, Religion, and International Politics",
+     "UNAS170101 Oppression and Change in the Contemporary United States: Sociocultural and Psychological Perspectives",
+     "UNAS174101 Moving Matters: Migration and Transformation Across the Americas",
+     "UNAS174201 Urban Paradoxes: Theories and Practices of City Infrastructures",
+     "AADS111401 When Gods Begin Again: Intro to African and African Diaspora Religions",
+     "AADS1137 Managing Diversity",
+     "AADS220101 Versions in Black: Black Women's Writing"
+   ];
+
+  const elective_courses = [
+    "CSCI1090 Data Science Principles",
+    "CSCI2267 Technology and Culture",
+    "CSCI2268 Data, Ethics and Society",
+    "CSCI2270 Introduction to Databases",
+    "CSCI2291 Data Science: Methods and Applications",
+    "CSCI3100 Foundations of Blockchain",
+    "CSCI3312 Recommender Systems",
+    "CSCI3345 Machine Learning",
+    "CSCI3347 Robotics",
+    "CSCI3349 Natural Language Processing",
+    "CSCI3353 Object-Oriented Design",
+    "CSCI3356 Software Engineering",
+    "CSCI3358 Foundations of Algorithmic (Un)Fairness",
+    "CSCI3360 Human-AI Interaction",
+    "CSCI3362 Operating Systems",
+    "CSCI3384 Computability and Computational Complexity",
+    "CSCI3387 Topics in Computational Intelligence: Machine Learning Projects",
+    "CSCI3397 Topics in Computational Intelligence: Biomedical Image Analysis",
+    "CSCI4910 Readings in Programming Languages"
+  ];
+
+</script>
+<!-- <script src=”d.js”></script> -->
+
+</div>
+</div>
+</body>
+<footer> 
+<h4 style=text-align:center>All Rights Reserved.</h4>
+</footer>
+</html>

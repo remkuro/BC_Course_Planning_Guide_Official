@@ -1,0 +1,56 @@
+
+* {
+  margin: 0;
+  transition: 0.4s;
+}
+
+.topnav{
+  font-size: 20px;
+  align-items: center;
+  display: flex; 
+  flex: 1;
+  flex-direction:row;
+  justify-content:center;
+  top: 0;
+  background-color: #8b100a;
+  color:white;
+  padding: 10px;
+}
+
+.image {
+  width:100%;
+  background-image: url('assets/gasson.jpg');
+  background: linear-gradient(rgba(0,0,0, 0.2), rgb(237, 235, 220, 0.6)),  url('assets/gasson.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed; 
+  background-position: center bottom;
+  background-size: cover;
+}
+
+.mini-body{
+  background-color:rgb(237, 235, 220, 0.9);
+  margin: 20px 140px 0px 140px;
+  border: 1px solid black;
+}
+
+/* .mini-body p, h3, h2, form, label, button{
+  margin: 25px ;
+} */
+
+.mini-body{
+   margin: 20px 140px 30px 140px;
+  padding:20px;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
+}
+
+footer{
+  display: flex;
+  flex-direction: column;
+  background-color:#511315;
+  color:white;
+  padding:20px;
+   
+}
+
