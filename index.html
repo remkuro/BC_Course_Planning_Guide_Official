@@ -242,13 +242,21 @@
       
       tableWrapper.appendChild(table);
       tableContainer.appendChild(tableWrapper); 
-        if (r > 2) {
+            if (r > 2 && i != 2) {
         const select = row.querySelector("#mySelect");
+        const select2 = row.querySelector("#mySelect2");
         select.addEventListener("change", () => {
           if (select.value === "core") {
             col1.innerHTML += createOptions(core_courses);
             }else{
             col1.innerHTML += createOptions(elective_courses)
+            }
+            });
+          select2.addEventListener("change", () => {
+          if (select2.value === "core") {
+            col2.innerHTML += createOptions(core_courses);
+            }else{
+            col2.innerHTML += createOptions(elective_courses)
             }
             });
           }
